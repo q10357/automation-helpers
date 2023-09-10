@@ -29,13 +29,13 @@ func main() {
 	}
 
 	// Get value from cell by given sheet name and axis.
-	cellValue, err := f.GetCellValue("Sheet1", "B2")
+	/*cellValue, err := f.GetCellValue("Sheet1", "A1")
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 	fmt.Println(cellValue)
-
+	*/
 	// Get all the rows in the sheet.
 	rows, err := f.GetRows("Sheet1")
 	if err != nil {
