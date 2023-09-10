@@ -1,13 +1,28 @@
 package main
 
 import (
+	"flag"
 	"fmt"
+	"os"
 
 	"github.com/xuri/excelize/v2"
 )
 
 func main() {
-	f, err := excelize.OpenFile("sample.xlsx")
+	fmt.Println("len", len(os.Args))
+	pfileName := "tmp"
+	flag.StringVar(&pfileName, "fileName", "usx", "Filename")
+	//This should also be flag
+	delimiter := ","
+
+	flag.Parse()
+	fmt.Println(pfileName)
+
+	/*for _, arg := range os.Args[1:] {
+		fmt.Println(arg)
+	}*/
+
+	f, err := excelize.OpenFile(pfileName + ".xlsx")
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -31,8 +46,7 @@ func main() {
 	// Iterate over the rows and print the cell values.
 	for _, row := range rows {
 		for _, colCell := range row {
-			fmt.Print(colCell, "\t")
+			fmt.Print(colCell, delimiter)
 		}
-		fmt.Println()
 	}
 }
