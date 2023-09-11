@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"flag"
 	"fmt"
 	"os"
@@ -54,12 +55,25 @@ func main() {
 		}
 	}
 
+	// Open a text file for writing
+	file, err := os.Create("output.txt")
+	if err != nil {
+		fmt.Println("Error creating file:", err)
+		return
+	}
+	defer file.Close()
+
+	writer := bufio.NewWriter(file)
+
 	// Print the map
 	for key, values := range valuesMap {
-		fmt.Printf("Key: %s\n%s\n\n", key, strings.Join(values, delimiter))
+		_, err := writer.WriteString(fmt.Sprintf("Key: %s\n%s\n\n", key, strings.Join(values, delimiter)))
+		if err != nil {
+			fmt.Println("Error writing to file:", err)
+			return
+		}
 	}
-
-	fmt.Println()
+	writer.Flush()
 	//fmt.Printf("\ncount: %d\n", count)
 }
 
